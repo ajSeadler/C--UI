@@ -2,7 +2,7 @@
 
 A simple yet effective C# application to generate secure, random passwords. Useful for keeping your online accounts safe by avoiding reused or weak passwords.
 
-![Password Generator Screenshot](Assests/pw.png)
+![Password Generator Screenshot](Assets/pw.png)
 
 ## 🛠 Features
 

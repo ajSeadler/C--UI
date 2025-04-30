@@ -3,13 +3,13 @@
              x:Class="PasswordManagerUI.App"
              xmlns:local="using:PasswordManagerUI"
              RequestedThemeVariant="Default">
-             <!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
 
     <Application.DataTemplates>
         <local:ViewLocator/>
     </Application.DataTemplates>
-  
+
     <Application.Styles>
-        <FluentTheme />
+        <!-- Fluent Theme -->
+        <StyleInclude Source="avares://Avalonia.Themes.Fluent/FluentTheme.xaml"/>
     </Application.Styles>
 </Application>

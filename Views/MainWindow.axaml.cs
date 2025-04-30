@@ -1,56 +1,77 @@
 using Avalonia.Controls;
 using Avalonia.Interactivity;
 using System;
-using System.Text;
 using System.IO;
+using System.Text;
 
-namespace PasswordManagerUI.Views;
-
-public partial class MainWindow : Window
+namespace PasswordManagerUI.Views
 {
-    public MainWindow()
+    public partial class MainWindow : Window
     {
-        InitializeComponent();
-    }
-
-    private void OnGenerateClick(object? sender, RoutedEventArgs e)
-    {
-        string account = AccountInput.Text ?? "";
-        string email = EmailInput.Text ?? "";
-        string lengthStr = LengthInput.Text ?? "";
-
-        if (string.IsNullOrWhiteSpace(account) || string.IsNullOrWhiteSpace(email) || !int.TryParse(lengthStr, out int length) || length <= 0)
+        public MainWindow()
         {
-            Output.Text = "Please enter valid info in all fields.";
-            return;
+            InitializeComponent();
         }
 
-        string password = GeneratePassword(length);
-        string path = "/Users/ajseadler/passwords.txt";
-
-        try
+        // Event handler for the "Generate Password" button
+        private void OnGenerateClick(object sender, RoutedEventArgs e)
         {
-            string record = $"Account: {account}\nEmail: {email}\nPassword: {password}\n---\n";
-            File.AppendAllText(path, record);
-            Output.Text = $"Password generated:\n{password}\n\nSaved to:\n{path}";
+            // Ensure the text input fields are not null
+            string account = AccountInput?.Text ?? string.Empty;  // Use fallback if null
+            string email = EmailInput?.Text ?? string.Empty;      // Same for email
+            string lengthText = LengthInput?.Text ?? string.Empty; // Same for length
+
+            // Validate account and email
+            if (string.IsNullOrWhiteSpace(account))
+            {
+                Output.Text = "Account name cannot be empty.";
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                Output.Text = "Email/username cannot be empty.";
+                return;
+            }
+
+            // Get password length from input
+            if (!int.TryParse(lengthText, out int length) || length <= 0)
+            {
+                Output.Text = "Invalid password length.";
+                return;
+            }
+
+            // Generate password
+            string password = GeneratePassword(length);
+            Output.Text = $"\nGenerated Password: {password}";
+
+            // Save password to file
+            string path = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "passwords.txt");
+            try
+            {
+                string record = $"Account: {account}\nEmail: {email}\nPassword: {password}\n---\n";
+                File.AppendAllText(path, record);
+                Output.Text += $"\nPassword info saved to: {path}";
+            }
+            catch (Exception ex)
+            {
+                Output.Text += $"\nError writing to file: {ex.Message}";
+            }
         }
-        catch (Exception ex)
+
+        // Generate a random password
+        private string GeneratePassword(int length)
         {
-            Output.Text = $"Error saving file:\n{ex.Message}";
+            const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+            StringBuilder sb = new StringBuilder();
+            Random rnd = new Random();
+
+            for (int i = 0; i < length; i++)
+            {
+                sb.Append(chars[rnd.Next(chars.Length)]);
+            }
+
+            return sb.ToString();
         }
-    }
-
-    private string GeneratePassword(int length)
-    {
-        const string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
-        StringBuilder sb = new StringBuilder();
-        Random rnd = new Random();
-
-        for (int i = 0; i < length; i++)
-        {
-            sb.Append(chars[rnd.Next(chars.Length)]);
-        }
-
-        return sb.ToString();
     }
 }

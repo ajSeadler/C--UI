@@ -1,0 +1,34 @@
+# Ignore build output
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Rider project files
+.idea/
+
+# VS Code settings
+.vscode/
+
+# Dotnet-specific
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Auto-generated files
+Generated\ Files/
+
+# Ignore logs
+*.log
+
+# Ignore environment files
+.env
+.env.*
+
+# Ignore NuGet packages
+*.nupkg
+*.snupkg

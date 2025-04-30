@@ -1,17 +1,11 @@
 # 🔐 C# Password Generator
 
-A simple yet effective C# application to generate secure, random passwords. Useful for keeping your online accounts safe by avoiding reused or weak passwords.
-
 ![Password Generator Screenshot](Assets/pw.png)
-
-## 🛠 Features
 
 - Generate passwords with letters, numbers, and symbols
 - Adjustable password length
 - Lightweight and fast
 - Clean and modern console output
-
-## 🚀 Getting Started
 
 ### Requirements
 
@@ -22,6 +16,6 @@ A simple yet effective C# application to generate secure, random passwords. Usef
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/password-generator.git
+   git clone https://github.com/ajSeadler/C--UI.git
    cd password-generator
    ```
